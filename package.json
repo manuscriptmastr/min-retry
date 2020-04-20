@@ -1,0 +1,40 @@
+{
+  "name": "min-retry",
+  "version": "1.0.0",
+  "description": "Minimal retrier for any fetch implementation",
+  "main": "index.js",
+  "scripts": {
+    "test": "ava --verbose --watch"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=13.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/manuscriptmastr/min-retry.git"
+  },
+  "keywords": [
+    "retry",
+    "fetch",
+    "429",
+    "AbortError",
+    "FetchError",
+    "functional"
+  ],
+  "author": "Joshua Martin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manuscriptmastr/min-retry/issues"
+  },
+  "homepage": "https://github.com/manuscriptmastr/min-retry#readme",
+  "devDependencies": {
+    "ava": "^3.7.0",
+    "nock": "^12.0.3",
+    "node-fetch": "^2.6.0"
+  },
+  "dependencies": {
+    "async-retry": "^1.3.1",
+    "ramda": "^0.27.0"
+  }
+}
