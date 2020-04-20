@@ -1,7 +1,7 @@
 {
   "name": "min-retry",
   "version": "1.0.0",
-  "description": "Minimal retrier for any fetch implementation",
+  "description": "Minimal retry for any fetch implementation",
   "main": "index.js",
   "scripts": {
     "test": "ava --verbose --watch"
