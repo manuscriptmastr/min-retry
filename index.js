@@ -3,10 +3,10 @@ import R from 'ramda';
 const {
   anyPass,
   both,
+  complement,
   compose,
   constructN,
   curry,
-  defaultTo,
   is,
   ifElse,
   invoker,
@@ -23,7 +23,7 @@ const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 const until = timestampMs => timestampMs - Date.now();
 
 const typeEq = curry((string, thing) => type(thing) === string);
-const isDeltaSeconds = compose(typeEq('Number'), defaultTo(null), parseInt);
+const isDeltaSeconds = compose(both(typeEq('Number'), complement(Number.isNaN)), parseInt);
 const getHeader = curry((header, response) => response.headers.get(header));
 const getRateLimitReset = getHeader('RateLimit-Reset');
 
