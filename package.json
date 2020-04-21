@@ -1,6 +1,6 @@
 {
   "name": "min-retry",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Minimal retry for any fetch implementation",
   "main": "dist.js",
   "scripts": {
@@ -11,6 +11,7 @@
       "esm"
     ]
   },
+  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/manuscriptmastr/min-retry.git"
