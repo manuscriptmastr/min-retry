@@ -1,6 +1,5 @@
 import _retry from 'async-retry';
-import R from 'ramda';
-const {
+import {
   anyPass,
   both,
   complement,
@@ -14,7 +13,7 @@ const {
   propEq,
   when,
   type,
-} = R;
+} from 'ramda';
 
 const raise = err => { throw err };
 const instanceOf = propEq('name');

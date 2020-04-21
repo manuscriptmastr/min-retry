@@ -1,12 +1,16 @@
 {
   "name": "min-retry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Minimal retry for any fetch implementation",
-  "main": "index.js",
+  "main": "dist.js",
   "scripts": {
     "test": "ava --verbose --watch"
   },
-  "type": "module",
+  "ava": {
+    "require": [
+      "esm"
+    ]
+  },
   "engines": {
     "node": ">=13.2.0"
   },
