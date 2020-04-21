@@ -38,7 +38,7 @@ const resignedFanboy = await retry(3, fetchElvisForMyBirthdayParty).then(rejectI
 // which rejects with an error so it can be handled.
 ```
 
-If you want to simply decorate `fetch` with retry behavior, it is easy to compose `min-retry` so that arguments are passed through to fetch:
+If you want to simply decorate `fetch` with retry behavior, it is easy to compose `min-retry` so that arguments are passed through to `fetch`:
 ```js
 import retry from 'min-retry';
 import _fetch from 'node-fetch';
