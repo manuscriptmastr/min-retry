@@ -11,9 +11,6 @@
       "esm"
     ]
   },
-  "engines": {
-    "node": ">=13.2.0"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/manuscriptmastr/min-retry.git"
