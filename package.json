@@ -1,6 +1,6 @@
 {
   "name": "min-retry",
-  "version": "1.0.5-beta.0",
+  "version": "1.0.5-beta.1",
   "description": "Minimal retry for any fetch implementation",
   "main": "src/index.js",
   "scripts": {
