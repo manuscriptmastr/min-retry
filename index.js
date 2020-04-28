@@ -1,19 +1,17 @@
 import _retry from 'async-retry';
-import {
-  anyPass,
-  both,
-  complement,
-  compose,
-  constructN,
-  curry,
-  is,
-  ifElse,
-  invoker,
-  map,
-  propEq,
-  when,
-  type,
-} from 'ramda';
+import anyPass from 'ramda/src/anyPass.js';
+import both from 'ramda/src/both.js';
+import complement from 'ramda/src/complement.js';
+import compose from 'ramda/src/compose.js';
+import constructN from 'ramda/src/constructN.js';
+import curry from 'ramda/src/curry.js';
+import is from 'ramda/src/is.js';
+import ifElse from 'ramda/src/ifElse.js';
+import invoker from 'ramda/src/invoker.js';
+import map from 'ramda/src/map.js';
+import propEq from 'ramda/src/propEq.js';
+import when from 'ramda/src/when.js';
+import type from 'ramda/src/type.js';
 
 const raise = err => { throw err };
 const instanceOf = propEq('name');
