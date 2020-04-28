@@ -1,17 +1,18 @@
 {
   "name": "min-retry",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Minimal retry for any fetch implementation",
-  "main": "dist.js",
+  "type": "module",
+  "main": "./dist.js",
+  "module": "./index.js",
+  "exports": {
+    "require": "./dist.js",
+    "import": "./index.js",
+    "default": "./index.js"
+  },
   "scripts": {
     "test": "ava --verbose --watch"
   },
-  "ava": {
-    "require": [
-      "esm"
-    ]
-  },
-  "module": "index.js",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/manuscriptmastr/min-retry.git"
@@ -31,7 +32,7 @@
   },
   "homepage": "https://github.com/manuscriptmastr/min-retry#readme",
   "devDependencies": {
-    "ava": "^3.7.0",
+    "ava": "^3.8.1",
     "nock": "^12.0.3",
     "node-fetch": "^2.6.0"
   },

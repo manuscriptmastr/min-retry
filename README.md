@@ -52,25 +52,8 @@ const fetch('/users/1', { method: 'GET' });
 //~> { id: 1, username: 'joshuamartin', favoriteFetcher: 'fetch' }
 ```
 
-`min-retry` works beautifully when composed with other `fetch` decorators:
-```js
-import R from 'ramda';
-import retry from 'min-retry';
-import { limit } from 'semaphorejs';
-import fetch from 'node-fetch';
-const { compose, curry } = R;
-
-const raise = err => { throw err };
-const rejectIfNotOkay = res => res.ok ? res : raise(new Error(res.statusText));
-const toJSON = res => res.json();
-
-const thru = curry((decorate, fn) => (...args) => decorate(() => fn(...args)));
-const then = curry((after, fn) => (...args) => fn(...args).then(after));
-
-// Note: retry is below rejectIfNotOkay because it should be called first
-const superPoweredFetch = compose(
-  then(toJSON)
-  then(rejectIfNotOkay),
-  thru(retry(3))
-)(fetch);
-```
+## ES Modules
+As of version `1.0.5`, `min-retry` is 100% ES Module friendly but backwards compatible. You can use `min-retry` in a project:
+- with `"type": "module"` set in your top-level `package.json`
+- with a bundler like Webpack (e.g. `create-react-app`)
+- with only CommonJS support
