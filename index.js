@@ -47,7 +47,7 @@ const isRetryableStatus = anyPass([
 const forceRetry = () => raise(new RetryableError('Retrying...'));
 
 /**
- * Retries up to `max` attempts only if `fetcher`:
+ * Retries up to `max` attempts only if `fetch`:
  * - returns a `Response` with `status` 429 or 500–599
  * - throws a `FetchError` or `AbortError`
  * If retries exceed `max`, then the response is passed along,
@@ -55,15 +55,14 @@ const forceRetry = () => raise(new RetryableError('Retrying...'));
  * Use retry behavior before handling bad statuses.
  * @async
  * @param {number} max
- * @param {() => Promise<Response>} fetcher
+ * @param {(url: RequestInfo, opts?: RequestInit) => Promise<Response>} fetch
  * @returns {Promise<Response>}
  * @example
- * const fetchUserById = (id) => fetch(`/users/${id}`);
- * const safeFetchUserById = retry(3, () => fetchUserById(1));
+ * const user1 = await retry(3, fetch)('/users/1');
  */
-const retry = curry((max, fetcher) => _retry(async (bail, tries) => {
+const retry = curry((max, fetch) => (...args) => _retry(async (bail, tries) => {
   const canRetry = tries < (max + 1);
-  return fetcher()
+  return fetch(...args)
     .then(async res => {
       const resetHeader = getRateLimitReset(res);
       if (resetHeader && res.status === 429) {
