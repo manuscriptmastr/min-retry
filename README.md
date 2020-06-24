@@ -5,12 +5,14 @@
 import retry from 'min-retry';
 import fetch from 'isomorphic-unfetch';
 
+// retry(max, fetch) is auto-curried,
+// so retry(max)(fetch) is equivalent
 const safeFetch = retry(3, fetch);
 const user1 = await safeFetch('/users/1', { method: 'GET' });
 //~> { id: 1, username: 'joshuamartin', favoriteFetcher: 'fetch' }
 ```
 
-`min-retry` is an auto-curried higher order function that retries up to `max` times when `fetch`:
+`min-retry` retries up to `max` times when `fetch`:
 - returns a `Response` with `status` 429 or 500–599
 - throws a `FetchError` or `AbortError`
 
