@@ -1,7 +1,7 @@
 {
   "name": "min-retry",
-  "version": "2.0.0",
-  "description": "Minimal retry for any fetch implementation",
+  "version": "2.0.1",
+  "description": "No-nonsense retrier for fetch",
   "type": "module",
   "main": "./dist.js",
   "module": "./index.js",

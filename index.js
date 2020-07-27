@@ -50,15 +50,15 @@ const forceRetry = () => raise(new RetryableError('Retrying...'));
  * Retries up to `max` attempts only if `fetch`:
  * - returns a `Response` with `status` 429 or 500–599
  * - throws a `FetchError` or `AbortError`
- * If retries exceed `max`, then the response is passed along,
- * whether an error or a response with a bad status.
+ * If retries exceed `max`, then the original response
+ * or thrown error is passed along.
  * Use retry behavior before handling bad statuses.
  * @async
  * @param {number} max
- * @param {(url: RequestInfo, opts?: RequestInit) => Promise<Response>} fetch
- * @returns {Promise<Response>}
+ * @param {(url: RequestInfo, opts?: RequestInit) => Promise<Response>} fetch function that returns a Response
+ * @returns {(url: RequestInfo, opts?: RequestInit) => Promise<Response>} function that returns a Response
  * @example
- * const user1 = await retry(3, fetch)('/users/1');
+ * const firstUser = await retry(3, fetch)('/users/1');
  */
 const retry = curry((max, fetch) => (...args) => _retry(async (bail, tries) => {
   const canRetry = tries < (max + 1);
