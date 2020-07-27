@@ -1,7 +1,7 @@
 {
   "name": "min-retry",
-  "version": "2.0.0",
-  "description": "Minimal retry for any fetch implementation",
+  "version": "2.0.1",
+  "description": "No-nonsense retrier for fetch",
   "type": "module",
   "main": "./dist.js",
   "module": "./index.js",
@@ -19,8 +19,15 @@
   },
   "keywords": [
     "retry",
+    "rate",
+    "limit",
+    "RateLimit",
+    "RateLimit-Reset",
+    "header",
     "fetch",
+    "API",
     "429",
+    "Too Many Requests",
     "AbortError",
     "FetchError",
     "functional"
@@ -32,8 +39,8 @@
   },
   "homepage": "https://github.com/manuscriptmastr/min-retry#readme",
   "devDependencies": {
-    "ava": "^3.9.0",
-    "nock": "^12.0.3",
+    "ava": "^3.11.0",
+    "nock": "^13.0.2",
     "node-fetch": "^2.6.0"
   },
   "dependencies": {

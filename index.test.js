@@ -18,12 +18,13 @@ class RandomError extends Error {
   }
 }
 
+const raise = err => { throw err };
+
 test.afterEach(nock.cleanAll);
 
 test.serial('retry(max, fetch) does not interfere with good statuses', async t => {
   const scope = nock(MOCK_API)
     .get('/')
-    .once()
     .reply(200, { hello: 'world' });
   const res = await retry(3, fetch)(MOCK_API);
   t.deepEqual(res.status, 200);
@@ -33,7 +34,6 @@ test.serial('retry(max, fetch) does not interfere with good statuses', async t =
 test.serial('retry(max, fetch) does not interfere with undocumented bad status', async t => {
   const scope = nock(MOCK_API)
     .get('/')
-    .once()
     .reply(410, { message: 'Failed' });
   const res = await retry(3, fetch)(MOCK_API);
   t.deepEqual(res.status, 410);
@@ -47,7 +47,6 @@ test.serial('retry(max, fetch) retries for documented bad status', async t => {
     .reply(501, { message: 'Failed' });
   const scope2 = nock(MOCK_API)
     .get('/')
-    .once()
     .reply(200, { hello: 'world' });
   const res = await retry(3, fetch)(MOCK_API);
   t.deepEqual(res.status, 200);
@@ -68,11 +67,9 @@ test.serial('retry(max, fetch) returns original response when documented bad sta
 test.serial('retry(max, fetch) attempts more than once when FetchError is thrown', async t => {
   const scope1 = nock(MOCK_API)
     .get('/')
-    .once()
     .replyWithError(new FetchError('Fetch failed', 'FetchError'));
   const scope2 = nock(MOCK_API)
     .get('/')
-    .once()
     .reply(200, { hello: 'world' });
   const res = await retry(3, fetch)(MOCK_API);
   t.deepEqual(res.status, 200);
@@ -96,13 +93,13 @@ test.serial('retry(max, fetch) raises original error when retries exceed max', a
 });
 
 test.serial('retry(max, fetch) immediately raises an error it does not recognize', async t => {
-  nock(MOCK_API)
-    .get('/')
-    .reply(() => { throw new RandomError('Yeet') });
+  let timesCalled = 0;
+  const fakeFetch = async () => (timesCalled++, raise(new RandomError('Yeet')));
   await t.throwsAsync(
-    retry(3, fetch)(MOCK_API),
+    retry(3, fakeFetch)(MOCK_API),
     { instanceOf: RandomError, message: 'Yeet' }
   );
+  t.deepEqual(timesCalled, 1);
 });
 
 test.serial('retry(max, fetch) waits before next retry on status 429 when RateLimit-Reset header is set to delta-seconds', async t => {
@@ -136,7 +133,6 @@ test.serial('retry(max, fetch) waits before next retry on status 429 when RateLi
 test.serial('retry(max, fetch) accepts curried arguments', async t => {
   const scope = nock(MOCK_API)
     .get('/')
-    .once()
     .reply(200, { hello: 'world' });
   const res = await retry(3, fetch)(MOCK_API);
   t.deepEqual(res.status, 200);
