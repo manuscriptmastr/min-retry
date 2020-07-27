@@ -30,11 +30,11 @@ const obnoxiousFetch = retry(3, fetch);
 const fetchElvisForMyBirthdayParty = () => obnoxiousFetch(`https://hollywood.example/stars/elvis_presley/schedule`, { method: 'POST' });
 
 const birthdayParty = await fetchElvisForMyBirthdayParty();
-//~> retry gives up and returns 429 response
+//~> retry gives up after 4 calls and returns 429 response
 
 const birthdayParty = await fetchElvisForMyBirthdayParty()
   .then(rejectIfNotOkay)
   .catch(scheduleLocalArtist('bob-with-a-banjo'));
-//~> retry gives up and passes 429 response to rejectIfNotOkay,
+//~> retry gives up after 4 calls and passes 429 response to rejectIfNotOkay,
 // which rejects with an error so we know to schedule a local artist instead
 ```
