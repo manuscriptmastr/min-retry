@@ -1,9 +1,9 @@
 # min-retry
 
-No-nonsense retrier for `fetch`.
+No-nonsense retrier for `fetch` or any function returning a `Response`.
 ```js
+import fetch from 'node-fetch';
 import retry from 'min-retry';
-import fetch from 'isomorphic-unfetch';
 
 // retry(max, fetch) and retry(max)(fetch) are equivalent
 const safeFetch = retry(3, fetch);
@@ -18,8 +18,8 @@ If `Response` includes a [`RateLimit-Reset` header](https://tools.ietf.org/id/dr
 
 If retries exceed `max`, then the original response or thrown error is passed along. This keeps `min-retry` extremely transparent and composable with other handlers:
 ```js
+import fetch from 'node-fetch';
 import retry from 'min-retry';
-import fetch from 'isomorphic-unfetch';
 
 const raise = err => { throw err };
 const rejectIfNotOkay = res => res.ok ? res : raise(new Error(res.statusText));
@@ -30,11 +30,16 @@ const obnoxiousFetch = retry(3, fetch);
 const fetchElvisForMyBirthdayParty = () => obnoxiousFetch(`https://hollywood.example/stars/elvis_presley/schedule`, { method: 'POST' });
 
 const birthdayParty = await fetchElvisForMyBirthdayParty();
-//~> retry gives up after 4 calls and returns 429 response
+// retry gives up after 4 calls and returns 429 response
 
 const birthdayParty = await fetchElvisForMyBirthdayParty()
   .then(rejectIfNotOkay)
   .catch(scheduleLocalArtist('bob-with-a-banjo'));
-//~> retry gives up after 4 calls and passes 429 response to rejectIfNotOkay,
+// retry gives up after 4 calls and passes 429 response to rejectIfNotOkay,
 // which rejects with an error so we know to schedule a local artist instead
+```
+
+## CommonJS
+```js
+const retry = require('min-retry');
 ```
