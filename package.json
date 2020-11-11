@@ -1,6 +1,6 @@
 {
   "name": "min-retry",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "No-nonsense retrier for fetch",
   "type": "module",
   "main": "./cjs/index.cjs",
@@ -40,14 +40,14 @@
   },
   "homepage": "https://github.com/manuscriptmastr/min-retry#readme",
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "ava": "^3.11.0",
-    "nock": "^13.0.2",
-    "node-fetch": "^2.6.0"
+    "@rollup/plugin-commonjs": "^16.0.0",
+    "@rollup/plugin-node-resolve": "^10.0.0",
+    "ava": "^3.13.0",
+    "nock": "^13.0.5",
+    "node-fetch": "^2.6.1"
   },
   "dependencies": {
     "async-retry": "^1.3.1",
-    "ramda": "^0.27.0"
+    "ramda": "^0.27.1"
   }
 }
